@@ -2,11 +2,11 @@ import React from 'react'
 
 const Crud7 = () => {
    /* 
-    CRUD DE LIVROS COM AVALIAÇÃO
-    CAMPOS: Titulo, autor e nota
-    Usar componentes reutilizaveis como por exemplo a estrela para avaliação.
-    Operações: listar, adicionar, editar e excluir
-    Armazenamento: JSON Server ou algo do tipo
+    7. CRUD de Livros com Avaliação
+    - Campos: título, autor, nota
+    - Objetivo: Integrar com backend simulado (JSON Server) e usar componentes reutilizáveis (ex: estrelas).
+    - Desafio: Fazer requisições HTTP (GET, POST, PUT, DELETE) e criar componentes genéricos e reutilizáveis.
+    - Ferramenta: JSON Server + componentes customizados (estrela)
   */
   return (
     <div>Crud7</div>

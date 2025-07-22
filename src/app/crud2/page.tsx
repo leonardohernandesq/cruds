@@ -3,11 +3,13 @@ import React from 'react'
 const Crud2 = () => {
   
  /* 
-  CRUD DE PRODUTOS
-  CAMPOS: nome, preço e categoria
-  FORMULÁRIO CONTROLADO
-  Operações: listar, adicionar, editar e excluir
-  Armazenamento: useReducer
+  2. CRUD de Produtos
+  - Campos: nome, preço, categoria
+  - Objetivo: Aprender a utilizar useReducer para gerenciar estado complexo com ações.
+  - Desafio: Definir e organizar bem os tipos de ação no reducer (ADD, EDIT, DELETE).
+  - Ferramenta: useReducer
+
+
  */
 
   return (

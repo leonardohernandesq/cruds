@@ -2,11 +2,11 @@ import React from 'react'
 
 const Crud3 = () => {
    /* 
-    CRUD DE TAREFAS
-    CAMPOS: titulo, descricao, status 
-    FOCO: filtrar por status
-    Operações: listar, adicionar, editar e excluir
-    Armazenamento: Context
+    3. CRUD de Posts
+    - Campos: título, conteúdo
+    - Objetivo: Persistir os dados em localStorage e manter o estado entre sessões.
+    - Desafio: Integrar useState com useEffect para carregar e salvar os dados automaticamente.
+    - Ferramenta: useState + useEffect
   */
 
   return (

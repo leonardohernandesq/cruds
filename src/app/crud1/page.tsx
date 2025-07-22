@@ -3,11 +3,11 @@ import React from 'react'
 const Crud1 = () => {
 
  /* 
-  CRUD DE USUÁRIOS
-  FORMULÁRIO E VALIDAÇÃO BÁSICA
-  CAMPOS: nome e email
-  Operações: listar, adicionar, editar e excluir
-  armazenamento: apenas no useState
+  1. CRUD DE USUÁRIOS
+  - Campos: nome, email
+  - Objetivo: Aprender a manipular formulários simples e listas com useState.
+  - Desafio: Lidar com inputs controlados e atualizar a lista (adicionar, editar, excluir).
+  - Ferramenta: useState
  */
 
   return (

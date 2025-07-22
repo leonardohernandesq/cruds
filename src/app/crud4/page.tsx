@@ -2,11 +2,11 @@ import React from 'react'
 
 const Crud4 = () => {
    /* 
-    CRUD DE POSTS
-    CAMPOS: titulo e conteudo
-    salvar em local storage
-    Operações: listar, adicionar, editar e excluir
-    Armazenamento: useState + useEffect para persistir
+    4. CRUD de Tarefas
+    - Campos: título, descrição, status (ex: pendente, concluído)
+    - Objetivo: Compartilhar estado entre componentes com Context e permitir filtro por status.
+    - Desafio: Criar o Contexto, Provider e consumir os dados corretamente em diferentes componentes.
+    - Ferramenta: React Context
   */
   return (
     <div>Crud4</div>
