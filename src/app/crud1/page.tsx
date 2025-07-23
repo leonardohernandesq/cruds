@@ -16,23 +16,33 @@ const Crud1 = () => {
   interface IUser {
     name: string;
     email: string;
+    index?: number;
   }
   const [users, setUsers] = useState<Array<IUser>>([]);
+  const [form, setForm] = useState<IUser>({name: '', email: '', index: undefined});
+
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const formData = new FormData(e.currentTarget);
-
-    const name = formData.get("name") as string;
-    const email = formData.get("email") as string;
-
-    const newUser = {
-      name,
-      email
+    if(form.index){
+      users.splice(form.index, 1, form)
+      setUsers(users);
+    } else {
+      setUsers([...users, form]);
     }
 
-    setUsers([...users, newUser]);
+    setForm({name: '', email: '', index: undefined})  
+  }
+
+  const handleDelete = (index: number) => {
+    const filteredUsers = users.filter((item, i) => i !== index);
+
+    setUsers(filteredUsers);
+  }
+
+  const handleEdit = ({name, email, index}: IUser) => {
+    setForm({name, email, index});
   }
 
   return (
@@ -41,25 +51,25 @@ const Crud1 = () => {
         <form className="w-full" onSubmit={handleSubmit}>
           <div className='flex flex-col gap-1 my-3'>
             <label htmlFor="name">Nome do Usuário: </label>
-            <input name='name' className='border rounded-sm py-1 px-3' type="text" />
+            <input name='name' className='border rounded-sm py-1 px-3' type="text" value={form.name} onChange={(e) => setForm(prev => ({...prev, name: e.target.value}))}/>
           </div>
           <div className='flex flex-col gap-1 my-3'>
             <label htmlFor="email">Email do Usuário: </label>
-            <input name='email' className='border rounded-sm py-1 px-3' type="email" />
+            <input name='email' className='border rounded-sm py-1 px-3' type="email" value={form.email} onChange={(e) => setForm(prev => ({...prev, email: e.target.value}))}/>
           </div>
           <button className='bg-blue-800 text-white py-2 w-full rounded-sm'>
             Salvar
           </button>
         </form>
 
-        <div className='h-96 overflow-scroll'>
+        <div className='h-96 w-full overflow-y-scroll'>
           {
-            users.map((user) => (
+            users.map((user, index) => (
               <div key={user.email} className='flex justify-between items-center my-4 border-b p-2 pb-5'>
                 <h3>{user.name} - {user.email}</h3>
                 <div className='ml-6 flex gap-2 '>
-                  <button className='border rounded-sm p-2 text-yellow-700'><FaEdit className='text-yellow-700' /></button>
-                  <button className='border rounded-sm p-2 text-red-700'><FaTrash className='text-red-700' /></button>
+                  <button onClick={(e) => handleEdit({name: user.name, email: user.email, index})} className='border rounded-sm p-2 text-yellow-700'><FaEdit className='text-yellow-700' /></button>
+                  <button onClick={() => handleDelete(index)} className='border rounded-sm p-2 text-red-700'><FaTrash className='text-red-700' /></button>
                 </div>
               </div>
             ))
