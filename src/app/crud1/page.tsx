@@ -1,7 +1,8 @@
 'use client'
 
+import { useRouter } from 'next/navigation';
 import React, { FormEvent, useState } from 'react'
-import { FaEdit, FaTrash } from 'react-icons/fa';
+import { FaAngleLeft, FaEdit, FaTrash } from 'react-icons/fa';
 
 const Crud1 = () => {
 
@@ -18,6 +19,9 @@ const Crud1 = () => {
     email: string;
     index?: number;
   }
+
+
+  const router = useRouter();
   const [users, setUsers] = useState<Array<IUser>>([]);
   const [form, setForm] = useState<IUser>({name: '', email: '', index: undefined});
 
@@ -48,6 +52,7 @@ const Crud1 = () => {
   return (
     <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
       <main className="flex flex-col gap-[32px] row-start-2 items-center ">
+        <button className='flex items-center bg-zinc-300 py-2 px-6 rounded-sm' onClick={() => router.back()}> <FaAngleLeft/> Voltar</button>
         <form className="w-full" onSubmit={handleSubmit}>
           <div className='flex flex-col gap-1 my-3'>
             <label htmlFor="name">Nome do Usuário: </label>
