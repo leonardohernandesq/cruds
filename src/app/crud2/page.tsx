@@ -11,7 +11,8 @@ const Crud2 = () => {
     - Campos: nome, preço, categoria
     - Objetivo: Aprender a utilizar useReducer para gerenciar estado complexo com ações.
     - Desafio: Definir e organizar bem os tipos de ação no reducer (ADD, EDIT, DELETE).
-    - Ferramenta: useReducer 
+    - Ferramenta: useReducer
+    - Usar MAP
   */
 
   interface IProduct {
@@ -26,26 +27,48 @@ const Crud2 = () => {
     | { type: 'DELETE_PRODUCT'; payload: number }
     | { type: 'EDIT_PRODUCT'; payload: IProduct };
 
-  const reducer = (state: IProduct[], action: Action): IProduct[] => {
+const generateInitialProducts = (): Map<number, IProduct> => {
+  const map = new Map<number, IProduct>();
+  for (let i = 1; i <= 100; i++) {
+    map.set(i, {
+      id: i,
+      name: `Produto ${i}`,
+      price: (Math.random() * 100).toFixed(2),
+      category: `Categoria ${i % 10}`,
+    });
+  }
+  return map;
+};
+
+const reducer = (state: Map<number, IProduct>, action: Action): Map<number, IProduct> => {
+    const newState = new Map(state);
+
     switch (action.type) {
       case 'ADD_PRODUCT':
-        return [...state, { ...action.payload, id: Date.now() }];
+        const id = Date.now();
+        newState.set(id, { ...action.payload, id })
+        return newState;
       case 'DELETE_PRODUCT':
-        return state.filter(p => p.id !== action.payload)
+        newState.delete(action.payload);
+        return newState;
       case 'EDIT_PRODUCT':
-        return state.map((product) => product.id === action.payload.id ? action.payload : product);
+        newState.set(action.payload.id!, action.payload)
+        return newState;
       default:
-        return state;
+        return newState;
     }
   }
 
   const router = useRouter();
   const [form, setForm] = useState<IProduct>({ id: undefined, name: '', price: '', category: '' })
-  const [products, dispatch] = useReducer(reducer, []);
-
+  const [products, dispatch] = useReducer(reducer, undefined, generateInitialProducts);
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    if(!form.name || !form.price || !form.category){
+      return window.alert('Preencha os campos corretamente');
+    }
 
     if (form.id) {
       dispatch({ type: 'EDIT_PRODUCT', payload: form });
@@ -89,7 +112,7 @@ const Crud2 = () => {
             <strong className='border w-full flex justify-center'>Actions</strong>
           </div>
           {
-            products.map((product) => (
+            Array.from(products.values()).map((product) => (
               <div className='flex justify-between' key={product.id}>
                 <div className='border flex w-full justify-center'>{product.name}</div>
                 <div className='border flex w-full justify-center'>R$ {product.price}</div>
